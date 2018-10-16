@@ -1,0 +1,12 @@
+bind = '0.0.0.0:19001'
+workers = 4
+backlog = 2048
+debug = True
+errorlog = 'log/errlog.txt'
+accesslog = 'log/acclog.txt'
+loglevel = 'debug'
+daemon = False
+access_log_format = '%(t)s%(p)s%(h)s"%(r)s%(s)s%(L)s%(b)s%(f)s""%(a)s"'
+worker_class = "gevent"
+timeout = 300
+umask = "0066"
