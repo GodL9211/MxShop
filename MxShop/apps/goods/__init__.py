@@ -1,0 +1,1 @@
+default_app_config = 'goods.apps.GoodsConfig'   # 后台中app的名字是中文显示

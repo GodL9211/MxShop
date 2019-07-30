@@ -47,10 +47,16 @@ INSTALLED_APPS = [
     'trade',
     'user_operation',
     'rest_framework',
-    'django_filters'
+    'django_filters',
+    "coreschema",  # 跨域
+    "DjangoUeditor",  # 富文本
+    "xadmin",
+    "crispy_forms",
+    "rest_framework.authtoken"
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # 解决跨域问题
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,7 +96,7 @@ WSGI_APPLICATION = 'MxShop.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-
+# 数据库配置
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -142,7 +148,19 @@ USE_TZ = False  # 本地时间
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+# 设置文件上传路径
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
+
+# 跨域问题配置
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    #"PAGE_SIZE": 3,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}

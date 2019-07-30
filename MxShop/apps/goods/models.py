@@ -26,8 +26,8 @@ class GoodsCategory(models.Model):
         verbose_name = "商品类别"
         verbose_name_plural = verbose_name
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class GoodsCategoryBrand(models.Model):
     """
@@ -66,7 +66,7 @@ class Goods(models.Model):
     is_new = models.BooleanField(default=False, verbose_name="是否新品")
     is_hot = models.BooleanField(default=False, verbose_name="是否热卖")
     add_time = models.DateField(default=datetime.now, verbose_name="添加时间")
-    goods_front_image = models.ImageField(upload_to="goods/images", null=True, blank=True, verbose_name="")
+    goods_front_image = models.ImageField(upload_to="goods/images", null=True, blank=True, verbose_name="首页封面图")
 
     class Meta:
         verbose_name = "商品"
@@ -93,7 +93,7 @@ class GoodsImage(models.Model):
 
 class Banner(models.Model):
     """
-    轮播的商品
+    首页轮播图
     """
     goods = models.ForeignKey(Goods, verbose_name="商品")
     image = models.ImageField(upload_to="banner", verbose_name="轮播图")
@@ -106,4 +106,34 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.goods.name
- 
+
+
+class IndexAd(models.Model):
+    """
+    首页商品类别广告
+    """
+    category = models.ForeignKey(GoodsCategory, verbose_name="商品类目")
+    goods = models.ForeignKey(Goods, related_name="goods")
+
+    class Meta:
+        verbose_name = "首页商品类别广告"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.goods.name
+
+
+class HotsearchWords(models.Model):
+    """
+    热搜词
+    """
+    keywords = models.CharField('热搜词', max_length=20, default='')
+    index = models.IntegerField('排序', default=0)
+    add_time = models.DateTimeField('添加时间', default=datetime.now)
+
+    class Meta:
+        verbose_name = "热搜排行"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.keywords
